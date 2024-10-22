@@ -21,7 +21,6 @@ let gameBoard = (function(){
         [[0,2], [1, 1], [2,0]],
     ]
 
-
     for(let i = 0; i < 3; i++){
         board[i] = [];
         for(let j = 0; j < 3 ; j++){
@@ -83,19 +82,29 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
             if(isWinningCombination){
                 gameActive = false;
                 console.log(`${currentPlayer.name} is the winner!`)
-            }              
-
+            }
         })
-
     
       
     };
+
+    const checkDraw = () =>{
+        const isDraw = board.every((arr)=>{
+           return !arr.includes(null)
+        })
+
+        if(isDraw){
+            console.log('Draw')
+        }
+
+    }
 
     const PlayRound = (row, column) =>{
         if(gameActive){
             gameBoard.dropToken(row, column, getCurrentPlayer().token);
             
-            checkWinner(getCurrentPlayer().token) 
+            checkWinner(getCurrentPlayer().token);
+            checkDraw()
         }
     }
 
@@ -117,11 +126,17 @@ const game = gameController();
 game.PlayRound(0, 0);
 console.log(gameBoard.getBoard());
 
-
 game.PlayRound(0, 2);
 console.log(gameBoard.getBoard());
 
+
+game.PlayRound(0, 1);
+console.log(gameBoard.getBoard());
+
 game.PlayRound(1, 0);
+console.log(gameBoard.getBoard());
+
+game.PlayRound(1, 2);
 console.log(gameBoard.getBoard());
 
 game.PlayRound(1, 1);
@@ -130,6 +145,11 @@ console.log(gameBoard.getBoard());
 game.PlayRound(2, 0);
 console.log(gameBoard.getBoard());
 
+game.PlayRound(2, 1);
+console.log(gameBoard.getBoard());
+
+game.PlayRound(2, 2);
+console.log(gameBoard.getBoard());
 
 
 
