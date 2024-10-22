@@ -8,7 +8,7 @@ let gameBoard = (function(){
 
     const winningCombinations = [
         //Horzontal win
-        [[0, 0], [0, 1] [1, 2]],
+        [[0, 0], [0, 1],[0, 2]],
         [[1, 0], [1, 1], [1, 2]],
         [[2, 0], [2, 1], [2, 2]],
         //vertical win
@@ -50,6 +50,7 @@ let gameBoard = (function(){
 
 function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
     let board = gameBoard.getBoard();
+    let gameActive = true;
 
     const Players = [
         {
@@ -72,16 +73,30 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
     const getCurrentPlayer = () => currentPlayer;
 
     const checkWinner = (token) => {
-        let allOccupied = true;
         
+
+        gameBoard.winningCombinations.forEach((arr)=>{
+          const isWinningCombination =   arr.every((cell)=>{
+               return board[cell[0]][cell[1]] === token
+                
+            })
+            if(isWinningCombination){
+                gameActive = false;
+                console.log(`${currentPlayer.name} is the winner!`)
+            }              
+
+        })
+
+    
       
-    }
+    };
 
     const PlayRound = (row, column) =>{
-        gameBoard.dropToken(row, column, getCurrentPlayer().token
-    
-    
-    );
+        if(gameActive){
+            gameBoard.dropToken(row, column, getCurrentPlayer().token);
+            
+            checkWinner(getCurrentPlayer().token) 
+        }
     }
 
     
@@ -99,8 +114,29 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
 const game = gameController();
 
 
-game.PlayRound(0, 1);
-console.log(gameBoard.getBoard())
+game.PlayRound(0, 0);
+console.log(gameBoard.getBoard());
 
-game.PlayRound(0,0);
-console.log(gameBoard.getBoard())
+
+game.PlayRound(0, 2);
+console.log(gameBoard.getBoard());
+
+game.PlayRound(1, 0);
+console.log(gameBoard.getBoard());
+
+game.PlayRound(1, 1);
+console.log(gameBoard.getBoard());
+
+game.PlayRound(2, 0);
+console.log(gameBoard.getBoard());
+
+
+
+
+
+
+
+
+
+
+
