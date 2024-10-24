@@ -76,14 +76,24 @@
 
     >div{
         display: flex;
+      
 
+        font-family: "Sixtyfour Convergence", sans-serif;
+        font-optical-sizing: auto;
+        font-weight: 400;
+        font-style: normal;
+        font-size: x-large;
+        
+      
+
+
+       
         align-items: center;
         justify-content: center;
 
         width: 150px;
         height: 150px;
 
-      
     }
 
   }
@@ -102,3 +112,15 @@
   }
 
 
+  #roundMessage{
+    margin-top: 80px;
+  }
+
+  /* .win{
+    text-decoration: line-through;
+  } */
+
+
+  .winningCell{
+    background-color: black;
+  }
