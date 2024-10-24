@@ -1,7 +1,7 @@
 
 const buttonCell = document.querySelectorAll('.cell');
 const roundMessage= document.querySelector(`#roundMessage`);
-
+const restartBtn = document.querySelector('.restartBtn');
 
 
 
@@ -13,6 +13,8 @@ let gameBoard = (function(){
     const columns = 3;
     
     let board = [];
+
+ 
     
     //0, 1,2
     
@@ -39,6 +41,8 @@ let gameBoard = (function(){
     }
 
     let getBoard = () => board;
+
+ 
     
     let dropToken = (row, column, token) => {
         if(board[row][column] === null){
@@ -60,6 +64,8 @@ let gameBoard = (function(){
 function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
     let board = gameBoard.getBoard();
     let gameActive = true;
+
+    
     
     const Players = [
         {
@@ -102,8 +108,12 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
                     winningCell.classList.add('winningCell')
                     roundMessage.textContent = `${currentPlayer.name} is the winner!`
                     console.log(`${currentPlayer.name} is the winner!`)
+
+
+                
                 });
 
+                
                 
             }
         })
@@ -129,7 +139,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
 
             const btn = document.querySelector(`[data-row = "${row}"][data-column = "${column}"]`);
             btn.textContent = gameBoard.getBoard()[row][column]
-            console.log(board)
+            
 
             checkWinner(getCurrentPlayer().token);
             if(gameActive){
@@ -141,9 +151,33 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
             }
            
         }
-        
+
+        restartBtn.addEventListener('click', ()=>{
+        gameActive = true
+            for(let i = 0; i < 3; i++){
+             for(let j = 0; j < 3; j++){
+                 board[i][j] = null
+             }
+         }
+         if(gameActive){
+
+             buttonCell.forEach((btn)=>{
+                btn.textContent = ''
+                btn.classList.remove('winningCell')
+                
+             })
+             roundMessage.textContent = ''
+             currentPlayer = Players[0]
+         }
+     
+     
+     
+         })
+
     
     }
+
+    
     
     buttonCell.forEach((btn)=>{
         
@@ -157,6 +191,7 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
             PlayRound(row, column)
 
         })
+
     })
     
     
@@ -166,11 +201,12 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
         PlayRound,
         
     }
+    
 
 }
 
 
-
+ 
 const game = gameController();
 
 
