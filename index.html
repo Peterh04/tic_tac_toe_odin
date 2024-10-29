@@ -12,7 +12,9 @@
 </head>
 <body>
     <h2>TIC TAC TOE</h2>
-    <button class="restartBtn">Restart</button>
+   
+    <button class="restartBtn"><img src="/icons/restart-svgrepo-com.svg" alt=""></button>
+    <!-- <button class="computerModeBtn">Computer</button> -->
     <div class="gameBoard">
         <div class="cell left bottom cell-0-0 win" data-row= 0  data-column = 0 ></div>
         <div class="cell bottom  cell-0-1 win"  data-row = 0  data-column = 1></div>
@@ -24,8 +26,26 @@
         <div class="cell cell-2-1 win"  data-row = 2  data-column = 1></div>
         <div class="cell right cell-2-2 win "  data-row = 2  data-column = 2></div>
     </div>
-
    <h2 id="roundMessage"></h2>
+
+   <p>Player One : <span class="playerOneScore">0</span> </p>
+   <P>Player Two : <span class="playerTwoScore">0</span> </P>
+
+
+   <dialog class="startupModal" >
+    <form action="" method="post" id="formModal" autocomplete="off">
+        <div class="inputDivs">
+            <label for="playerOne">Player One name</label>
+            <input type="text" id="playerOne">
+        </div>
+        <div class="inputDivs">
+            <label for="playerTwo">Player Two name</label>
+            <input type="text" id="playerTwo">
+        </div>
+    
+        <button type="button" class="formSubmitBtn">Submit</button>
+    </form>
+   </dialog>
 
 </body>
 </html>

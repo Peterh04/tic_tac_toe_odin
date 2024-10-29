@@ -2,6 +2,14 @@
 const buttonCell = document.querySelectorAll('.cell');
 const roundMessage= document.querySelector(`#roundMessage`);
 const restartBtn = document.querySelector('.restartBtn');
+const playerOneScore = document.querySelector('.playerOneScore');
+const playerTwoScore = document.querySelector('.playerTwoScore');
+const formSubmitBtn = document.querySelector('.formSubmitBtn');
+const playerOneName = document.querySelector('#playerOne');
+const playerTwoName = document.querySelector('#playerTwo');
+const startupModal = document.querySelector('.startupModal');
+const computerModeBtn= document.querySelector('.computerModeBtn');
+
 
 
 
@@ -14,10 +22,27 @@ let gameBoard = (function(){
     
     let board = [];
 
+    let playerOneScoreValue = 0;
+    let playerTwoScoreValue = 0; 
  
     
-    //0, 1,2
-    
+    let getPlayerOneScore = ()=>{
+        return playerOneScoreValue
+    }
+
+    let getPlayerTwoScore = () =>{
+        return playerTwoScoreValue
+    }
+
+    let setPlayerOneScore = (value) =>{
+        playerOneScoreValue =  value
+    }
+
+    let setPlayerTwoScore = (value) =>{
+        playerTwoScoreValue =  value
+    }
+
+
     const winningCombinations = [
         //Horzontal win
         [[0, 0], [0, 1],[0, 2]],
@@ -48,16 +73,16 @@ let gameBoard = (function(){
         if(board[row][column] === null){
             board[row][column] = token;
             
-            console.log('dropped')
+         
            
         }
-        console.log('Occupied')
+        
         return;
     }
     
    
     
-    return { getBoard, dropToken, winningCombinations }
+    return { getBoard, dropToken, winningCombinations, getPlayerOneScore, getPlayerTwoScore, setPlayerOneScore, setPlayerTwoScore }
 })();
 
 
@@ -65,8 +90,23 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
     let board = gameBoard.getBoard();
     let gameActive = true;
 
+
+    let getNames = () =>{
+        console.log(playerOneName.value, playerTwoName.value)
+        
+    }
+
+    formSubmitBtn.addEventListener('click', (e)=>{
+        e.preventDefault();
+
+        getNames();
+
+        startupModal.close();
+    })
+
     
-    
+
+
     const Players = [
         {
             name : playerOne,
@@ -107,12 +147,22 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
 
                     winningCell.classList.add('winningCell')
                     roundMessage.textContent = `${currentPlayer.name} is the winner!`
-                    console.log(`${currentPlayer.name} is the winner!`)
+                   
 
-
-                
                 });
+                if (currentPlayer === Players[0]) {
+                    let playerScoreValue = gameBoard.getPlayerOneScore();
+                    playerScoreValue += 1;
+                    gameBoard.setPlayerOneScore(playerScoreValue); 
+                    playerOneScore.textContent = playerScoreValue; 
+                } else if (currentPlayer === Players[1]) {
+                    let playerScoreValue = gameBoard.getPlayerTwoScore();
+                    playerScoreValue += 1;
+                    gameBoard.setPlayerTwoScore(playerScoreValue); 
+                    playerTwoScore.textContent = playerScoreValue; 
+                }
 
+               
                 
                 
             }
@@ -122,13 +172,15 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
     };
     
     const checkDraw = () =>{
+        
         const isDraw = board.every((arr)=>{
             return !arr.includes(null)
         })
         
         if(isDraw){
+            gameActive = false
             roundMessage.textContent = `It's a Draw!`
-            console.log('Draw')
+
         }
         
     }
@@ -142,14 +194,48 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
             
 
             checkWinner(getCurrentPlayer().token);
+
+            if(!gameActive){
+                setTimeout(()=>{
+                    resetBoard();
+                    startNextRound();
+                }, 1000)
+            }
             if(gameActive){
                 checkDraw();
 
-                if(gameActive){
-                    switchPlayer();
+                if(!gameActive){
+                    setTimeout(()=>{
+                        resetBoard();
+                        startNextRound();
+                    }, 1000)
+                }else{
+                    switchPlayer()
                 }
+
             }
            
+        }
+
+        function resetBoard(){
+            for(let i = 0; i < 3; i++){
+             for(let j = 0; j < 3; j++){
+                 board[i][j] = null
+             }
+         }
+             buttonCell.forEach((btn)=>{
+                btn.textContent = ''
+                btn.classList.remove('winningCell')
+                
+             })
+             roundMessage.textContent = ''
+             currentPlayer = Players[0]
+
+         
+        }
+
+        function startNextRound(){
+            gameActive= true;
         }
 
         restartBtn.addEventListener('click', ()=>{
@@ -168,15 +254,16 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
              })
              roundMessage.textContent = ''
              currentPlayer = Players[0]
+
          }
      
      
      
          })
 
-    
     }
 
+  
     
     
     buttonCell.forEach((btn)=>{
@@ -205,8 +292,10 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
 
 }
 
-
- 
+restartBtn.addEventListener('click', ()=>{
+    playerOneScore.textContent = 0;
+    playerTwoScore.textContent = 0
+})
 const game = gameController();
 
 

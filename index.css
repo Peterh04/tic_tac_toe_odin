@@ -58,9 +58,27 @@
     height: 100vh;
     
     align-items: center;
+
+    position: relative;
+
+    background: beige;
     
   }
 
+  img{
+    height: 30px;
+    width: 50px;
+  }
+
+  button{
+    border-radius: 5px;
+    background: black;
+
+    cursor: pointer;
+    border: wheat;
+
+    margin-top: 20px;
+  }
 
 
   .gameBoard{
@@ -124,3 +142,38 @@
   .winningCell{
     background-color: black;
   }
+
+
+  #formModal{
+    display: flex;
+    flex-direction: column;
+
+    background-color: aqua;
+
+    justify-content: space-evenly;
+
+    height: 300px;
+    width: 350px;
+
+    border-radius: 10px;
+    z-index: 100;
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+  }
+
+
+  .inputDivs{
+    display: flex;
+    flex-direction: column;
+
+  }
+
+  .startupModal {
+    border: none;
+  }
+  
