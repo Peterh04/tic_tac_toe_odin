@@ -1,21 +1,4 @@
 
-const buttonCell = document.querySelectorAll('.cell');
-const roundMessage= document.querySelector(`#roundMessage`);
-const restartBtn = document.querySelector('.restartBtn');
-const playerOneScore = document.querySelector('.playerOneScore');
-const playerTwoScore = document.querySelector('.playerTwoScore');
-const formSubmitBtn = document.querySelector('.formSubmitBtn');
-const playerOneName = document.querySelector('#playerOne');
-const playerTwoName = document.querySelector('#playerTwo');
-const startupModal = document.querySelector('.startupModal');
-const computerModeBtn= document.querySelector('.computerModeBtn');
-
-
-
-
-
-
-
 let gameBoard = (function(){
     const rows = 3;
     const columns = 3;
@@ -89,6 +72,18 @@ let gameBoard = (function(){
 function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
     let board = gameBoard.getBoard();
     let gameActive = true;
+    
+    const buttonCell = document.querySelectorAll('.cell');
+    const roundMessage= document.querySelector(`#roundMessage`);
+    const formSubmitBtn = document.querySelector('.formSubmitBtn');
+    const playerOneName = document.querySelector('#playerOne');
+    const playerTwoName = document.querySelector('#playerTwo');
+    const startupModal = document.querySelector('.startupModal');
+    const computerModeBtn= document.querySelector('.computerModeBtn');
+
+
+
+
 
 
     let getNames = () =>{
@@ -291,6 +286,10 @@ function gameController(playerOne = 'Player One', playerTwo = 'Player Two'){
     
 
 }
+
+    const restartBtn = document.querySelector('.restartBtn');
+    const playerOneScore = document.querySelector('.playerOneScore');
+    const playerTwoScore = document.querySelector('.playerTwoScore');
 
 restartBtn.addEventListener('click', ()=>{
     playerOneScore.textContent = 0;
